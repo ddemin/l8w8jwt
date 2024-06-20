@@ -26,6 +26,12 @@ rm -rf "$REPO"/out
 rm -rf "$REPO"/build-mingw
 mkdir -p "$REPO"/build-mingw/include && cd "$REPO"/build-mingw || exit
 
+# TODO Remove this hardcode
+export CFLAGS="-mpclmul -msse2 -maes -m32"
+export CMAKE_C_FLAGS="-m32"
+export COMPILE_FLAGS="-m32"
+export LINK_FLAGS="-m32"
+
 cmake -G "MinGW Makefiles" -DL8W8JWT_SYSNAME="mingw-w64" -DUSE_SHARED_MBEDTLS_LIBRARY=Off "-D${PROJECT_NAME}_BUILD_DLL=On" "-D${PROJECT_NAME}_PACKAGE=On" -DCMAKE_BUILD_TYPE=Release ..
 
 mingw32-make.exe
